@@ -1,0 +1,13 @@
+/Users/jesse/Sync/rocksat_2019/power_mgt_code/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/jesse/Sync/rocksat_2019/power_mgt_code/cmake-build-debug/CMakeFiles/PLATFORMIO_REBUILD_PROJECT_INDEX.dir
+/Users/jesse/Sync/rocksat_2019/power_mgt_code/cmake-build-debug/CMakeFiles/PLATFORMIO_PROGRAM.dir
+/Users/jesse/Sync/rocksat_2019/power_mgt_code/cmake-build-debug/CMakeFiles/PLATFORMIO_UPDATE_ALL.dir
+/Users/jesse/Sync/rocksat_2019/power_mgt_code/cmake-build-debug/CMakeFiles/PLATFORMIO_UPLOADFS.dir
+/Users/jesse/Sync/rocksat_2019/power_mgt_code/cmake-build-debug/CMakeFiles/power_mgt_code.dir
+/Users/jesse/Sync/rocksat_2019/power_mgt_code/cmake-build-debug/CMakeFiles/PLATFORMIO_TEST.dir
+/Users/jesse/Sync/rocksat_2019/power_mgt_code/cmake-build-debug/CMakeFiles/PLATFORMIO_UPLOAD.dir
+/Users/jesse/Sync/rocksat_2019/power_mgt_code/cmake-build-debug/CMakeFiles/PLATFORMIO_CLEAN.dir
+/Users/jesse/Sync/rocksat_2019/power_mgt_code/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/jesse/Sync/rocksat_2019/power_mgt_code/cmake-build-debug/CMakeFiles/PLATFORMIO_BUILD.dir
+/Users/jesse/Sync/rocksat_2019/power_mgt_code/cmake-build-debug/CMakeFiles/PLATFORMIO_BUILD_VERBOSE.dir
+/Users/jesse/Sync/rocksat_2019/power_mgt_code/cmake-build-debug/CMakeFiles/PLATFORMIO_MONITOR.dir

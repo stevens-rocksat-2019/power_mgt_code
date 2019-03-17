@@ -1,0 +1,50 @@
+# !!! WARNING !!!
+# PLEASE DO NOT MODIFY THIS FILE!
+# USE https://docs.platformio.org/page/projectconf/section_env_build.html#build-flags
+
+
+set(PLATFORMIO_CMD "/usr/local/bin/platformio")
+
+SET(CMAKE_C_COMPILER "$ENV{HOME}/.platformio/packages/toolchain-gccarmnoneeabi/bin/arm-none-eabi-gcc")
+SET(CMAKE_CXX_COMPILER "$ENV{HOME}/.platformio/packages/toolchain-gccarmnoneeabi/bin/arm-none-eabi-g++")
+SET(CMAKE_CXX_FLAGS_DISTRIBUTION "-fno-rtti -fno-exceptions -std=gnu++11 -fno-threadsafe-statics -Os -ffunction-sections -fdata-sections -Wall -mthumb -nostdlib --param max-inline-insns-single=500 -mcpu=cortex-m0plus")
+SET(CMAKE_C_FLAGS_DISTRIBUTION "-std=gnu11 -Os -ffunction-sections -fdata-sections -Wall -mthumb -nostdlib --param max-inline-insns-single=500 -mcpu=cortex-m0plus")
+set(CMAKE_CXX_STANDARD 11)
+
+add_definitions(-D'PLATFORMIO=30605')
+add_definitions(-D'ARDUINO_ARCH_SAMD')
+add_definitions(-D'ARDUINO_SAMD_ZERO')
+add_definitions(-D'ARDUINO_SAMD_FEATHER_M0')
+add_definitions(-D'ARM_MATH_CM0PLUS')
+add_definitions(-D'__SAMD21G18A__')
+add_definitions(-D'F_CPU=48000000L')
+add_definitions(-D'USBCON')
+add_definitions(-D'ARDUINO=10805')
+add_definitions(-D'USB_VID=0x239A')
+add_definitions(-D'USB_PID=0x800B')
+add_definitions(-D'USB_PRODUCT=\"Adafruit Feather M0\"')
+add_definitions(-D'USB_MANUFACTURER=\"Adafruit\"')
+
+include_directories("$ENV{HOME}/.platformio/packages/framework-arduinosam/cores/adafruit")
+include_directories("$ENV{HOME}/.platformio/packages/framework-arduinosam/system/samd/CMSIS/CMSIS/Include")
+include_directories("$ENV{HOME}/.platformio/packages/framework-arduinosam/system/samd/CMSIS-Atmel/CMSIS/Device/ATMEL")
+include_directories("$ENV{HOME}/.platformio/packages/framework-arduinosam/variants/feather_m0")
+include_directories("${CMAKE_CURRENT_LIST_DIR}/.piolibdeps/Adafruit INA219_ID160")
+include_directories("$ENV{HOME}/.platformio/packages/framework-arduinosam/libraries/__cores__/adafruit/Wire")
+include_directories("$ENV{HOME}/.platformio/lib/Adafruit INA219_ID160")
+include_directories("$ENV{HOME}/.platformio/packages/framework-arduinosam/libraries/__cores__/adafruit/HID")
+include_directories("$ENV{HOME}/.platformio/packages/framework-arduinosam/libraries/__cores__/adafruit/I2S/src")
+include_directories("$ENV{HOME}/.platformio/packages/framework-arduinosam/libraries/__cores__/adafruit/SAMD_AnalogCorrection/src")
+include_directories("$ENV{HOME}/.platformio/packages/framework-arduinosam/libraries/__cores__/adafruit/SDU/src")
+include_directories("$ENV{HOME}/.platformio/packages/framework-arduinosam/libraries/__cores__/adafruit/SPI")
+include_directories("$ENV{HOME}/.platformio/packages/framework-arduinosam/libraries/__cores__/adafruit/USBHost/src")
+include_directories("$ENV{HOME}/.platformio/packages/toolchain-gccarmnoneeabi/arm-none-eabi/include")
+include_directories("$ENV{HOME}/.platformio/packages/toolchain-gccarmnoneeabi/arm-none-eabi/include/c++/4.8.4")
+include_directories("$ENV{HOME}/.platformio/packages/toolchain-gccarmnoneeabi/arm-none-eabi/include/c++/4.8.4/arm-none-eabi")
+include_directories("$ENV{HOME}/.platformio/packages/toolchain-gccarmnoneeabi/lib/gcc/arm-none-eabi/4.8.4/include")
+include_directories("$ENV{HOME}/.platformio/packages/toolchain-gccarmnoneeabi/lib/gcc/arm-none-eabi/4.8.4/include-fixed")
+include_directories("$ENV{HOME}/.platformio/packages/tool-unity")
+include_directories("${CMAKE_CURRENT_LIST_DIR}/include")
+include_directories("${CMAKE_CURRENT_LIST_DIR}/src")
+
+FILE(GLOB_RECURSE SRC_LIST "${CMAKE_CURRENT_LIST_DIR}/src/*.*" "${CMAKE_CURRENT_LIST_DIR}/lib/*.*" "${CMAKE_CURRENT_LIST_DIR}/.piolibdeps/*.*")

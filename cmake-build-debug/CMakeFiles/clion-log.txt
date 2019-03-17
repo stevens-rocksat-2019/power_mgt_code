@@ -1,0 +1,4 @@
+"/Users/jesse/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/183.5429.37/CLion.app/Contents/bin/cmake/mac/bin/cmake" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /Users/jesse/Sync/rocksat_2019/power_mgt_code
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /Users/jesse/Sync/rocksat_2019/power_mgt_code/cmake-build-debug
