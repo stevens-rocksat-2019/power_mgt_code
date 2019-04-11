@@ -4,31 +4,16 @@
 
 INA219Supply *supplies;
 
-void print_voltages() {
-  for (int i = 0; i < 8; i++) {
-    supplies[i].update();
-    Serial.print(supplies[i].getVoltage());
-    Serial.print(" ");
-  }
-  Serial.println();
-}
-
 void setup() {
   // put your setup code here, to run once:
 
   Serial.begin(115200);
-  supplies = new INA219Supply[8];
+  supplies = new INA219Supply[6];
 
-  // while (!Serial) {
-  //   ;
-  // }
-
-  pinMode(0, OUTPUT);
-  pinMode(1, OUTPUT);
-  digitalWrite(0, HIGH);
-  digitalWrite(1, HIGH);
-
-  for (int i = 0; i < 8; i++) {
+  while (!Serial) {
+    ;
+  }
+  for (int i = 0; i < 6; i++) {
     Serial.print("Initilizing supply ");
     Serial.println(i);
     supplies[i] = INA219Supply(EN_PINS[i], 10000, 1, 1, I2C_ADDRESSES[i]);
@@ -40,23 +25,9 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
 
-  for (int i = 0; i < 8; i++) {
-    supplies[i].power(true);
-  }
 
-  for (int i = 0; i < 5; i++) {
-    Serial.print("Voltage on:  ");
-    print_voltages();
-    delay(1000);
-  }
+  Serial.print("Voltage: ");
+  Serial.println(supplies[0].getVoltage());
 
-  for (int i = 0; i < 8; i++) {
-    supplies[i].power(false);
-  }
-
-  for (int i = 0; i < 5; i++) {
-    Serial.print("Voltage off: ");
-    print_voltages();
-    delay(1000);
-  }
+  delay(1000);
 }
