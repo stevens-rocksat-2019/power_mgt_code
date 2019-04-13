@@ -34,7 +34,9 @@ void INA219Supply::update() {
 }
 
 PowerSupply::PowerSupply(uint32_t enablePin, int timeout, int currentLimit, int expectedVoltage) :
-    enablePin(enablePin), timeout(timeout), currentLimit(currentLimit), expectedVoltage(expectedVoltage) { }
+    enablePin(enablePin), timeout(timeout), currentLimit(currentLimit), expectedVoltage(expectedVoltage) {
+    pinMode(enablePin, OUTPUT);
+}
 
 void PowerSupply::power(bool state) {
     digitalWrite(enablePin, state);
