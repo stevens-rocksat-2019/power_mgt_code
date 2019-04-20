@@ -109,7 +109,7 @@ INA219Cal calculateCalibration(float currentRange, float shuntR) {
 }
 
 INA219Cal calculateCorrection(INA219Cal in, int ina219Measured, int actualMeasured){
-    in.calValue = in.calValue * actualMeasured / ina219Measured;
+    in.calValue = in.calValue * (actualMeasured / 1000.0) / (ina219Measured / 1000.0);
     return in;
 }
 

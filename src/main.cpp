@@ -61,7 +61,7 @@ void displayVoltage() {
 void loop() {
   // put your main code here, to run repeatedly:
 
-  Serial.print("==== power on ====");
+   Serial.print("==== power on ====");
 
   setAllPower(true);
   for (int i = 0; i < 10; i++) {

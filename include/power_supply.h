@@ -38,6 +38,18 @@ struct INA219Cal {
     uint32_t currentLSB;
     float powerLSB;
     uint16_t config;
+
+    void print() {
+        Serial.print("INA219Cal {\n calValue: ");
+        Serial.print(calValue);
+        Serial.print("\n currentLSB: ");
+        Serial.print(currentLSB); 
+        Serial.print("\n powerLSB: "); 
+        Serial.print(powerLSB);
+        Serial.print("\n config: ");
+        Serial.print(config);
+        Serial.println("\n}");
+    }
 };
 
 
