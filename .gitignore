@@ -144,3 +144,14 @@ Temporary Items
 
 # End of https://www.gitignore.io/api/cmake,macos,clion+all,platformio
 
+CMakeListsPrivate.txt
+.vscode/.browse.c_cpp.db
+.vscode/ipch/8ccf77d7a03a2bce/power_supply.ipch
+.vscode/c_cpp_properties.json
+.vscode/extensions.json
+.vscode/launch.json
+.vscode/settings.json
+.vscode/ipch/5a0de72d58759b9a/main.ipch
+.vscode/ipch/5a0de72d58759b9a/mmap_address.bin
+.vscode/ipch/8ccf77d7a03a2bce/mmap_address.bin
+CMakeListsPrivate.txt
