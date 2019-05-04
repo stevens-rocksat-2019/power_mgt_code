@@ -6,9 +6,9 @@ long getCurrentTime() {
     return millis();
 }
 
-INA219Supply::INA219Supply(INA219Cal cal, uint32_t enablePin, int timeout, int currentLimit, int expectedVoltage, uint8_t address)
-        : PowerSupply(
-        enablePin, timeout, currentLimit, expectedVoltage), address(address) {
+INA219Supply::INA219Supply(INA219Cal cal, uint32_t enablePin, int timeout, int currentLimit, int expectedVoltage,
+                           uint8_t address, uint8_t railNumber)
+        : PowerSupply(enablePin, railNumber, timeout, currentLimit, expectedVoltage), address(address) {
     ina219 = Adafruit_INA219(address);
     ina219.begin();
 
@@ -50,8 +50,9 @@ INA219Cal INA219Supply::defaultCalibration() {
     return retVal;
 }
 
-PowerSupply::PowerSupply(uint32_t enablePin, int timeout, int currentLimit, int expectedVoltage) :
-    enablePin(enablePin), timeout(timeout), currentLimit(currentLimit), expectedVoltage(expectedVoltage) {
+PowerSupply::PowerSupply(uint32_t enablePin, uint8_t railNumber, int timeout, int currentLimit,
+                         int expectedVoltage) :
+    enablePin(enablePin), railNumber(railNumber), timeout(timeout), currentLimit(currentLimit), expectedVoltage(expectedVoltage) {
     pinMode(enablePin, OUTPUT);
 }
 
@@ -78,13 +79,20 @@ bool PowerSupply::isVoltageOK() {
     return getVoltage() > expectedVoltage;
 }
 
-INA219Cal calculateCalibration(float currentRange, float shuntR) {
-    Serial.print("calculateCalibration(");
-    Serial.print(currentRange);
-    Serial.print(", ");
-    Serial.print(shuntR);
-    Serial.println(")");
+PowerRailInfo PowerSupply::getRailInfo() {
+    PowerRailInfo railInfo = PowerRailInfo_init_zero;
+    railInfo.has_powerRail = true;
+    railInfo.powerRail = railNumber;
+    railInfo.has_voltage = true;
+    railInfo.voltage = getVoltage();
+    railInfo.has_current = true;
+    railInfo.current = getCurrent();
+    railInfo.has_powerState = true;
+    railInfo.powerState = lastState;
+    return railInfo;
+}
 
+INA219Cal calculateCalibration(float currentRange, float shuntR) {
     struct INA219Cal retVal{};
     double current_lsb = (double)currentRange / (double)pow(2, 15);
     double cal = (double)0.0496 / (current_lsb * (double)shuntR);
@@ -115,6 +123,5 @@ INA219Cal calculateCorrection(INA219Cal in, int ina219Measured, int actualMeasur
 
 
 INA219Cal LowRSunt219::getCalibration() {
-    Serial.println("calling correct calibration routine");
     return calculateCalibration(10, 0.01);
 }

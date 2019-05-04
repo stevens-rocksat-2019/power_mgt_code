@@ -3,25 +3,30 @@
 
 #include <Arduino.h>
 #include <Adafruit_INA219.h>
+#include "comm.pb.h"
 
 
 class PowerSupply {
 private:
   uint32_t enablePin;
+  uint8_t railNumber;
   int timeout = -1;
   int currentLimit = -1;
   int expectedVoltage = -1;
 
   long lastOnTime = -1;
+  PowerState lastState = PowerState_OFF;
 
 public:
 
     PowerSupply() = default;
-  PowerSupply(uint32_t enablePin, int timeout, int currentLimit, int expectedVoltage);
+  PowerSupply(uint32_t enablePin, uint8_t railNumber, int timeout, int currentLimit,
+              int expectedVoltage);
 
   void power(bool state);
   virtual float getCurrent() = 0;
   virtual float getVoltage() = 0;
+  PowerRailInfo getRailInfo();
   bool isCurrentOK();
   bool isVoltageOK();
 
@@ -63,7 +68,8 @@ class INA219Supply : public PowerSupply {
 
 public:
     INA219Supply() = default;
-    INA219Supply(INA219Cal cal, uint32_t enablePin, int timeout, int currentLimit, int expectedVoltage, uint8_t address);
+    INA219Supply(INA219Cal cal, uint32_t enablePin, int timeout, int currentLimit, int expectedVoltage,
+                 uint8_t address, uint8_t railNumber);
 
     static INA219Cal defaultCalibration();
 
