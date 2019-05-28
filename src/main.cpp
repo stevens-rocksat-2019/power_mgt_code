@@ -5,7 +5,7 @@
 #include "comm.pb.h"
 #include "pb_encode.h"
 #include "pb_decode.h"
-
+#include "sd_integration.h"
 
 #define num_supplies 6
 
@@ -47,6 +47,8 @@ void setup() {
     ;
   }
 
+  init_sd();
+
   supplies[0] = new INA219Supply(INA219Supply::defaultCalibration(), EN_PINS[0], 10000, 1, 1, I2C_ADDRESSES[0], 1);
   supplies[1] = new INA219Supply(INA219Supply::defaultCalibration(), EN_PINS[1], 10000, 1, 1, I2C_ADDRESSES[1], 2);
   supplies[2] = new INA219Supply(INA219Supply::defaultCalibration(), EN_PINS[2], 10000, 1, 1, I2C_ADDRESSES[2], 3);
@@ -62,6 +64,8 @@ void setup() {
   setAllPower(false);
 }
 
+uint8_t send_buffer[100];
+
 void sendData() {
     TxMicro tx = TxMicro_init_zero;
     tx.powerRailInfo_count = num_supplies;
@@ -70,12 +74,15 @@ void sendData() {
         tx.powerRailInfo[i] = supplies[i]->getRailInfo();
     }
 
-    uint8_t buffer[100];
-    pb_ostream_t stream = pb_ostream_from_buffer(buffer, sizeof(buffer));
+    pb_ostream_t stream = pb_ostream_from_buffer(send_buffer, sizeof(send_buffer));
     pb_encode(&stream, TxMicro_fields, &tx);
 
-    packetSerial.send(buffer, stream.bytes_written);
-    packetSerial.update();
+    if (Serial) {
+        packetSerial.send(send_buffer, stream.bytes_written);
+        packetSerial.update();
+    }
+
+    save_data(send_buffer, stream.bytes_written);
 }
 
 void loop() {
