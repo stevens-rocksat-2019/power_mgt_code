@@ -58,6 +58,7 @@ PowerSupply::PowerSupply(uint32_t enablePin, uint8_t railNumber, int timeout, in
 
 void PowerSupply::power(bool state) {
     digitalWrite(enablePin, state);
+    lastState = state ? PowerState_ON : PowerState_OFF;
 }
 
 bool PowerSupply::hasExpired() {

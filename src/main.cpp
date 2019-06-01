@@ -37,6 +37,27 @@ void onPacketReceived(const uint8_t* buffer, size_t size) {
     }
 }
 
+uint8_t send_buffer[150];
+
+void sendData() {
+    TxMicro tx = TxMicro_init_zero;
+    tx.powerRailInfo_count = num_supplies;
+    for (int i = 0; i < num_supplies; i++) {
+        supplies[i]->update();
+        tx.powerRailInfo[i] = supplies[i]->getRailInfo();
+    }
+
+    pb_ostream_t stream = pb_ostream_from_buffer(send_buffer, sizeof(send_buffer));
+    pb_encode(&stream, TxMicro_fields, &tx);
+
+    if (Serial) {
+        packetSerial.send(send_buffer, stream.bytes_written);
+        packetSerial.update();
+    }
+
+    save_data(send_buffer, stream.bytes_written);
+}
+
 
 void setup() {
   // put your setup code here, to run once:
@@ -64,30 +85,10 @@ void setup() {
   setAllPower(false);
 }
 
-uint8_t send_buffer[100];
-
-void sendData() {
-    TxMicro tx = TxMicro_init_zero;
-    tx.powerRailInfo_count = num_supplies;
-    for (int i = 0; i < num_supplies; i++) {
-        supplies[i]->update();
-        tx.powerRailInfo[i] = supplies[i]->getRailInfo();
-    }
-
-    pb_ostream_t stream = pb_ostream_from_buffer(send_buffer, sizeof(send_buffer));
-    pb_encode(&stream, TxMicro_fields, &tx);
-
-    if (Serial) {
-        packetSerial.send(send_buffer, stream.bytes_written);
-        packetSerial.update();
-    }
-
-    save_data(send_buffer, stream.bytes_written);
-}
-
 void loop() {
   // put your main code here, to run repeatedly:
 
   sendData();
   packetSerial.update();
+
 }
